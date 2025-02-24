@@ -16,7 +16,8 @@ Tegemist on mängu Hangman_2025 andmebaasi haldamise rakenduse disainiga. Õpila
 7. Lisa muudatused (commit) Git-i (lokaalne). Lisa commit tekstiks "Nuppude teksti muudatus"
 8. Lisa muudatused GitHubi (interneti)
 
-Kontrolli kas intenetis on ka vastav fail muutunud (commit)
+Kontrolli kas intenetis on ka vastav fail muutunud (commit). Kui midagi läks sassi ja asi ei toimi, siis kustuta projekt
+kettalt ja alusta algusest. 
 
 # Põhiülesanne
 Teil on vaja lisada funktsionaalsus andmebaasi sõnade lisamiseks, muutmiseks ja kustutamiseks. Rakenduse loogika on 
