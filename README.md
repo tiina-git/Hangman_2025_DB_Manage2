@@ -3,8 +3,8 @@
 Tegemist on mängu Hangman_2025 andmebaasi haldamise rakenduse disainiga. Õpilastel on vaja siia lisada funktsionaalsus.
 
 # Tehtud
-1. Üldine disain enamus vajalike asjadega on olemas. 
-2. Lisatud rippmenüü (Combobox) funktsionaalsus.
+1. Üldine disain enamus vajalike asjadega on olemas. See pole kivisse raiutud.
+2. Lisatud rippmenüü (Combobox) funktsionaalsus. Kuidas rippmenüü võiks toimida.
 
 # Enne põhiülesannet
 1. Klooni antud projekt enda PyCharm keskkonda
