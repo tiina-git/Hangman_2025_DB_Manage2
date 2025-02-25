@@ -2,6 +2,9 @@
 
 Tegemist on mängu Hangman_2025 andmebaasi haldamise rakenduse disainiga. Õpilastel on vaja siia lisada funktsionaalsus.
 
+# Eelvaade
+![Screenshot](screenshots/Hangman_2025_DB_Manage_screenshot.png | width=200)
+
 # Tehtud
 1. Üldine disain enamus vajalike asjadega on olemas. See pole kivisse raiutud.
 2. Lisatud rippmenüü (Combobox) funktsionaalsus. Kuidas rippmenüü võiks toimida.
