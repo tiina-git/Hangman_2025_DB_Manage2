@@ -3,7 +3,9 @@
 Tegemist on mängu Hangman_2025 andmebaasi haldamise rakenduse disainiga. Õpilastel on vaja siia lisada funktsionaalsus.
 
 # Eelvaade
-![Screenshot](screenshots/Hangman_2025_DB_Manage_screenshot.png | width=200)
+<img src="https://github.com/OkramL/Hangman_2025_DB_Manage/blob/master/screenshots/Hangman_2025_DB_Manage_screenshot.png" width="200">
+-
+![Screenshot](screenshots/Hangman_2025_DB_Manage_screenshot.png)
 
 # Tehtud
 1. Üldine disain enamus vajalike asjadega on olemas. See pole kivisse raiutud.
