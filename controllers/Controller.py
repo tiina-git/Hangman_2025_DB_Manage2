@@ -1,4 +1,6 @@
-from tkinter import END
+from tkinter.constants import DISABLED, NORMAL, END
+
+from models.Database import Database
 
 
 class Controller:
@@ -10,9 +12,25 @@ class Controller:
         """
         self.model = model
         self.view = view
+        self.database = Database()
+
+        # Nuppude callback seaded
+        self.btn_edit_callback()
+        self.btn_delete_callback()
+        self.btn_add_callback()
+        self.btn_open_callback()
 
         # Rippmenüü funktsionaalsus
         self.view.get_combo_categories.bind("<<ComboboxSelected>>", self.combobox_change)
+
+    def buttons_for_game(self):
+        self.view.cmb_category['state'] = DISABLED
+
+    def buttons_for_not_game(self):
+        self.view.cmb_category['state'] = NORMAL
+
+    def btn_new_click(self):
+        selected_category = self.view.cmb_category.get()
 
     def combobox_change(self, event=None):
         """
@@ -30,3 +48,17 @@ class Controller:
         else:
             self.view.get_txt_category.config(state='normal')  # Saab sisestada uue kategooria
             self.view.get_txt_category.focus()
+
+
+    # Näite: self.view.set_btn_cancel_callback(self.btn_cancel_click)
+    def btn_edit_callback(self):
+        self.view.set_btn_edit_callback(self.btn_edit_callback)
+
+    def btn_delete_callback(self):
+        self.view.set_btn_delete_callback(self.btn_delete_callback)
+
+    def btn_add_callback(self):
+        self.view.set_btn_add_callback(self.btn_add_callback)
+
+    def btn_open_callback(self):
+        self.view.set_btn_open_callback(self.btn_open_callback)

@@ -1,6 +1,7 @@
+from dbm import sqlite3
 from tkinter import *
 from tkinter.ttk import Combobox, Treeview
-
+from models.Database import Database
 
 class View(Tk):
 
@@ -31,7 +32,7 @@ class View(Tk):
         self.__lbl_old_categories, self.__combo_categories = self.create_combobox()
 
         # Nupud
-        self.__btn_add, self.__btn_edit, self.__btn_delete = self.create_buttons()
+        self.__btn_add, self.__btn_edit, self.__btn_delete, self.__btn_open = self.create_buttons()
 
         self.create_table()
 
@@ -87,15 +88,34 @@ class View(Tk):
         Loob kolm nuppu CRUD jaoks. Antud juhul: CUD (Create, Update, Delete)
         :return: btn_1, btn_2, btn_3
         """
-        btn_1 = Button(self.__frame_right, text='Liisa')
+        btn_1 = Button(self.__frame_right, text='Lisa')
         btn_2 = Button(self.__frame_right, text='Muuda')
         btn_3 = Button(self.__frame_right, text='Kustuta')
+        btn_4 = Button(self.__frame_right, text='Ava')      # Uus nupp 'Ava'
 
         btn_1.grid(row=0, column=1, padx=1, sticky=EW)
         btn_2.grid(row=1, column=2, padx=1, sticky=EW)
         btn_3.grid(row=0, column=2, padx=1, sticky=EW)
+        btn_4.grid(row=1, column=1, padx=1, sticky=EW)      # Uus nupp 'Ava'
 
-        return btn_1, btn_2, btn_3
+        return btn_1, btn_2, btn_3, btn_4
+
+    # Nuppude callback
+    # self.__btn_add, self.__btn_edit, self.__btn_delete, self.__btn_open()
+    def set_btn_edit_callback(self, callback):
+        self.__btn_edit.config(command=callback)
+
+    def set_btn_delete_callback(self, callback):
+        self.__btn_delete.config(command=callback)
+
+    def set_btn_add_callback(self, callback):
+        self.__btn_add.config(command=callback)
+
+    def set_btn_open_callback(self, callback):
+        """:rtype: object
+        """
+        self.__btn_open.config(command=callback)
+
 
     def create_combobox(self):
         """
@@ -106,7 +126,8 @@ class View(Tk):
         label.grid(row=1, column=0, pady=5, sticky=EW)
 
         combo = Combobox(self.__frame_top)
-        combo['values'] = ('Vali kategooria', 'Hooned', 'Loomad', 'Sõidukid') # Näidis
+        #combo['values'] = ('Vali kategooria', 'Hooned', 'Loomad', 'Sõidukid') # Näidis
+        combo['values'] = ('Vali kategooria', 'Hooned', 'Loomad')
         combo.current(0)
         combo.grid(row=1, column=1, padx=4, sticky=EW)
 
@@ -138,10 +159,32 @@ class View(Tk):
         self.__myTable.heading('category', text='Kategooria', anchor=CENTER)
 
         # (START) Siin peaks olema andmete tabelisse lisamise või uuendamise koht
+        """Andmebaasi andmete vaatamaine"""
+        # def read_words(), return data
+        db = Database()
+        data = db.read_words()
+        x=1
+        for row in data:
+            # self.__myTable.insert("", "end", values=(idx, word_id, word, category))
+
+            #jrk= row[0]
+            id= row[0]
+            word= row[1]
+            category= row[2]
+
+
+            self.__myTable.insert("", "end", values=(x, id, word, category))
+            x +=1
+
+
+
+
 
         # (LÕPP) Siin peaks olema andmete tabelisse lisamise või uuendamise koht
 
         self.__myTable.pack(fill=BOTH, expand=True)
+
+
 
     # GETTERS
 
@@ -176,3 +219,4 @@ class View(Tk):
         :return: Entry objekt
         """
         return self.__txt_word
+

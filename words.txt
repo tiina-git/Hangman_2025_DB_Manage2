@@ -1,0 +1,8 @@
+word;category
+maja;hoone
+hiir;loom
+kass;loom
+lennuk;sõiduk
+laev:sõiduk
+auto;sõiduk
+
