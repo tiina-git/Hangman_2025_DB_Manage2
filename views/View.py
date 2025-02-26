@@ -101,7 +101,7 @@ class View(Tk):
         return btn_1, btn_2, btn_3, btn_4
 
     # Nuppude callback
-    # self.__btn_add, self.__btn_edit, self.__btn_delete, self.__btn_open()
+
     def set_btn_edit_callback(self, callback):
         self.__btn_edit.config(command=callback)
 
@@ -126,12 +126,15 @@ class View(Tk):
         label.grid(row=1, column=0, pady=5, sticky=EW)
 
         combo = Combobox(self.__frame_top)
-        #combo['values'] = ('Vali kategooria', 'Hooned', 'Loomad', 'Sõidukid') # Näidis
-        combo['values'] = ('Vali kategooria', 'Hooned', 'Loomad')
+        #combo['values'] = ('Vali kategooria', 'Hooned', 'Loomad') # Näidis
+        combo['values'] = self.model.categories
         combo.current(0)
         combo.grid(row=1, column=1, padx=4, sticky=EW)
 
         return label, combo
+
+
+
 
     def create_table(self):
         """
@@ -166,19 +169,13 @@ class View(Tk):
         x=1
         for row in data:
             # self.__myTable.insert("", "end", values=(idx, word_id, word, category))
-
-            #jrk= row[0]
+            jrk = x
             id= row[0]
             word= row[1]
             category= row[2]
 
-
             self.__myTable.insert("", "end", values=(x, id, word, category))
             x +=1
-
-
-
-
 
         # (LÕPP) Siin peaks olema andmete tabelisse lisamise või uuendamise koht
 

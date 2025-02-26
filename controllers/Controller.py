@@ -2,7 +2,6 @@ from tkinter.constants import DISABLED, NORMAL, END
 
 from models.Database import Database
 
-
 class Controller:
     def __init__(self, model, view):
         """
@@ -30,6 +29,7 @@ class Controller:
         self.view.cmb_category['state'] = NORMAL
 
     def btn_new_click(self):
+        #Valitud kategooria
         selected_category = self.view.cmb_category.get()
 
     def combobox_change(self, event=None):
