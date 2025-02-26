@@ -1,6 +1,9 @@
-from dbm import sqlite3
+import sqlite3
 from tkinter import *
 from tkinter.ttk import Combobox, Treeview
+import tkinter as tk
+from PIL._tkinter_finder import tk
+
 from models.Database import Database
 
 class View(Tk):
@@ -32,8 +35,9 @@ class View(Tk):
         self.__lbl_old_categories, self.__combo_categories = self.create_combobox()
 
         # Nupud
-        self.__btn_add, self.__btn_edit, self.__btn_delete, self.__btn_open = self.create_buttons()
+        self.__btn_add, self.__btn_edit, self.__btn_delete, self.__btn_open, self.__btn_refresh, self.__x = self.create_buttons()
 
+       
         self.create_table()
 
     @staticmethod
@@ -88,35 +92,40 @@ class View(Tk):
         Loob kolm nuppu CRUD jaoks. Antud juhul: CUD (Create, Update, Delete)
         :return: btn_1, btn_2, btn_3
         """
-        btn_1 = Button(self.__frame_right, text='Lisa')
-        btn_2 = Button(self.__frame_right, text='Muuda')
-        btn_3 = Button(self.__frame_right, text='Kustuta')
-        btn_4 = Button(self.__frame_right, text='Ava')      # Uus nupp 'Ava'
+        btn_1 = Button(self.__frame_right, text='Lisa')         # add
+        btn_2 = Button(self.__frame_right, text='Muuda')        # edit
+        btn_3 = Button(self.__frame_right, text='Kustuta')      # delete
+        btn_4 = Button(self.__frame_right, text='Ava')          # open
+        btn_5 = Button(self.__frame_right, text='Uuenda')       # refresh
+        btn_6 = Button(self.__frame_right, text='')             # x
 
         btn_1.grid(row=0, column=1, padx=1, sticky=EW)
         btn_2.grid(row=1, column=2, padx=1, sticky=EW)
         btn_3.grid(row=0, column=2, padx=1, sticky=EW)
-        btn_4.grid(row=1, column=1, padx=1, sticky=EW)      # Uus nupp 'Ava'
+        btn_4.grid(row=1, column=1, padx=1, sticky=EW)
+        btn_5.grid(row=3, column=1, padx=0, sticky=EW)
+        btn_6.grid(row=3, column=2, padx=0, sticky=EW)
 
-        return btn_1, btn_2, btn_3, btn_4
+        return btn_1, btn_2, btn_3, btn_4, btn_5, btn_6
 
-    # Nuppude callback
-    # self.__btn_add, self.__btn_edit, self.__btn_delete, self.__btn_open()
+
+    # Nupud callback seaded
+    def set_btn_add_callback(self, callback):
+        self.__btn_add.config(command=callback)
+
     def set_btn_edit_callback(self, callback):
         self.__btn_edit.config(command=callback)
 
     def set_btn_delete_callback(self, callback):
         self.__btn_delete.config(command=callback)
 
-    def set_btn_add_callback(self, callback):
-        self.__btn_add.config(command=callback)
-
     def set_btn_open_callback(self, callback):
-        """:rtype: object
-        """
         self.__btn_open.config(command=callback)
 
+    def set_btn_refresh_callback(self, callback):
+        self.__btn_refresh.config(command=callback)
 
+    # Rippmenüü seaded
     def create_combobox(self):
         """
         Loob ja tagastab rippmenüü labeli ja rippmenüü enda
@@ -126,12 +135,13 @@ class View(Tk):
         label.grid(row=1, column=0, pady=5, sticky=EW)
 
         combo = Combobox(self.__frame_top)
-        #combo['values'] = ('Vali kategooria', 'Hooned', 'Loomad', 'Sõidukid') # Näidis
-        combo['values'] = ('Vali kategooria', 'Hooned', 'Loomad')
+        #combo['values'] = ('Vali kategooria', 'Hooned', 'Loomad') # Näidis
+        combo['values'] = self.model.categories
         combo.current(0)
         combo.grid(row=1, column=1, padx=4, sticky=EW)
 
         return label, combo
+
 
     def create_table(self):
         """
@@ -159,26 +169,24 @@ class View(Tk):
         self.__myTable.heading('category', text='Kategooria', anchor=CENTER)
 
         # (START) Siin peaks olema andmete tabelisse lisamise või uuendamise koht
-        """Andmebaasi andmete vaatamaine"""
-        # def read_words(), return data
+
+        #Andmebaasi kõigi andmete vaatamaine
         db = Database()
         data = db.read_words()
         x=1
         for row in data:
-            # self.__myTable.insert("", "end", values=(idx, word_id, word, category))
-
-            #jrk= row[0]
+            #jrk = x
             id= row[0]
             word= row[1]
             category= row[2]
 
-
             self.__myTable.insert("", "end", values=(x, id, word, category))
-            x +=1
+            x += 1
 
-
-
-
+        # Kategooriate rippmenüüst tehtud valiku saamine
+        def get_combobox_category(self):
+            print(f"Kontrollin kas kategooria tuleb... get_combobox_category: {self.combobox_category.get()}")
+            return self.combobox_category.get()
 
         # (LÕPP) Siin peaks olema andmete tabelisse lisamise või uuendamise koht
 
@@ -187,7 +195,6 @@ class View(Tk):
 
 
     # GETTERS
-
     @property
     def get_combo_categories(self):
         """
