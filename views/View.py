@@ -88,8 +88,8 @@ class View(Tk):
         :return: btn_1, btn_2, btn_3
         """
         btn_1 = Button(self.__frame_right, text='Liisa')
-        btn_2 = Button(self.__frame_right, text='Muda')
-        btn_3 = Button(self.__frame_right, text='Kusduda')
+        btn_2 = Button(self.__frame_right, text='Muuda')
+        btn_3 = Button(self.__frame_right, text='Kustuta')
 
         btn_1.grid(row=0, column=1, padx=1, sticky=EW)
         btn_2.grid(row=1, column=2, padx=1, sticky=EW)
