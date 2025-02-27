@@ -5,11 +5,11 @@ class Model:
     def __init__(self):
         self.database = Database()
         self.__categories = self.database.get_categories()
-        print(f"vanad kategooriad{self.__categories}")
+        #print(f"Kategooriad, mis on tabelis olemas: {self.__categories}")
 
         self.database = Database()
         self.__words = self.database.read_words()
-        print(self.__words)
+        #print(f"Sõnad{self.__words}")
 
 
 

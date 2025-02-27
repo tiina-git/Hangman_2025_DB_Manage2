@@ -24,15 +24,22 @@ class Controller:
         # Rippmenüü funktsionaalsus
         self.view.get_combo_categories.bind("<<ComboboxSelected>>", self.combobox_change)
 
+        # Märgistatud rea id saamine
+        #self.view.table.bind("<Double-Button-1>", self.get_selected_id)
+        self.view.get_my_table.bind("<Double-Button-1>", self.get_selected_id)
+
+
+
     def buttons_for_game(self):
         self.view.cmb_category['state'] = DISABLED
 
     def buttons_for_not_game(self):
         self.view.cmb_category['state'] = NORMAL
 
-    def btn_new_click(self):
+        """def btn_new_click(self):
         #Valitud kategooria
         selected_category = self.view.cmb_category.get()
+        """
 
     def combobox_change(self, event=None):
         """
@@ -65,37 +72,34 @@ class Controller:
     def btn_open_callback(self):
         self.view.set_btn_open_callback(self.btn_open_click)
         
-    
     def btn_refresh_callback(self):
         self.view.set_btn_refresh_callback(self.refresh_table) """
 
+
     # Nuppude funktsioonid
     def btn_add_click(self):
-        word = self.view.get_txt_word.get()               # Tekstikasti sisestus
-        txt_category = self.view.get_txt_category.get()       # Kategooria  sisestus või valik
+        word = self.view.get_txt_word.get()                         # Tekstikasti sisestus
+        txt_category = self.view.get_txt_category.get()             # Uus kategooria  sisestuskastist
         #old_category = self.view.get_combo_categories.current()
-        old_category = self.view.get_combo_categories.get()
+        old_category = self.view.get_combo_categories.get()         # Vana kategooria -rippmenüüst valik
 
-        if word and  txt_category:
+        if word and txt_category:
             try:
                 self.database.add_record(word, txt_category)
-                print(f"Sõna ja kategooria sisestamine {word} {txt_category}")
+                #print(f"Sõna ja kategooria sisestamine {word} {txt_category}")
                 #self.refresh_table()
             except Exception as error:
                 print(f"Viga sõna ja kategooria sisestamisel: {error}")
 
         elif word and old_category:
             try:
-
                 self.database.add_record(word, old_category)
-                print(f"Sõna ainult sisestamine koos olemas oleva kategooriaga: {word}, {old_category}")
+                #print(f"Sõna sisestamine koos olemas oleva kategooriaga: {word}, {old_category}")
                 #self.refresh_table()
             except Exception as error:
-                print(f"Viga sõna ainult sisestamisel: {error}")
-
-
+                print(f"Viga valitud kategooriaga sõna sisestamisel: {error}")
         else:
-            print(f"add click 'tühi'")
+            print(f"add click 'Tühi'")
 
 
     """
@@ -133,26 +137,28 @@ class Controller:
 
     
         # Tabeli värskendamine
-        def refresh_table(self):
-            data = self.database.read_words()
-            self.view.update_table(data)
-            print(f"Uuendan andmeid...")
+    def refresh_table(self):
+        data = self.database.read_words()
+        self.view.update_table(data)
+        print(f"Uuendan andmeid...")
+
+
     
-    
-    
+            """
     
     
    # Valitud rea id saamine
-    def get_selected_id(self):
-        selected_item = self.view.get_my_table().focus()    # Valitud rida
-        if selected_item:
-            selected_values= self.view.get_my_table().item(selected_item, 'values')
-            if selected_values:
-                print(f"Selected item{selected_item}")
-                print(f"Selected values{selected_values}")
-                return int(selected_values[0])              # Tagastab id
+    def get_selected_id(self,event):
+        my_table = self.view.get_my_table
+        selected_item = my_table.focus()    # Valitud rida
+        selected_values = my_table.item(selected_item, "values")
 
-        return None                                         # Rida pole valitud, midagi ei tagastata
+        if selected_values:
+            selected_id = selected_values[0]
+            print(f"Valitud id {selected_id }")
+            print(f"Valitud rida {selected_values}")
+            return int(selected_id)
+        else:
+            print("Midagi pole valitud")
+            return None                                         # Rida pole valitud, midagi ei tagastata
 
-
-            """

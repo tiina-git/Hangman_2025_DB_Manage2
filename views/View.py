@@ -1,5 +1,6 @@
 import sqlite3
 from tkinter import *
+from tkinter import ttk
 from tkinter.ttk import Combobox, Treeview
 import tkinter as tk
 from PIL._tkinter_finder import tk
@@ -15,6 +16,11 @@ class View(Tk):
         super().__init__() # Pärib kõik originaal Tk omadused: View(Tk)
         self.model = model
         self.__myTable = None
+        self.__myTable = ttk.Treeview(columns=("ID", "Word", "Category"), show="headings") #lisasin prooviks
+        self.__myTable.heading("ID", text="ID")
+        self.__myTable.heading("Word", text="Word")
+        self.__myTable.heading("Category", text="Category")
+
 
         self.grid_columnconfigure(1, weight=1)
         self.grid_columnconfigure(2, weight=1)
@@ -183,11 +189,6 @@ class View(Tk):
             self.__myTable.insert("", "end", values=(x, id, word, category))
             x += 1
 
-        # Kategooriate rippmenüüst tehtud valiku saamine
-        def get_combobox_category(self):
-            print(f"Kontrollin kas kategooria tuleb... get_combobox_category: {self.combobox_category.get()}")
-            return self.combobox_category.get()
-
         # (LÕPP) Siin peaks olema andmete tabelisse lisamise või uuendamise koht
 
         self.__myTable.pack(fill=BOTH, expand=True)
@@ -227,3 +228,9 @@ class View(Tk):
         """
         return self.__txt_word
 
+        """
+        # Kategooriate rippmenüüst tehtud valiku saamine
+        def get_combobox_category(self):
+            print(f"Kontrollin kas kategooria tuleb... get_combobox_category: {self.combobox_category.get()}")
+            return self.combobox_category.get()
+        """
