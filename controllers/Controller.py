@@ -4,7 +4,6 @@ from models.Database import Database
 from views.View import View
 from tkinter.filedialog import askopenfilename
 
-
 class Controller:
     def __init__(self, model, view):
         """
